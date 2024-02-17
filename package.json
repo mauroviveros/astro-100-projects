@@ -2,5 +2,16 @@
   "name": "astro-100-proyects",
   "description": "This repository contains 100 JavaScript projects recreated using Astro, based on the original work by @midudev",
   "author": "Mauro Daniel Viveros <maurod.viveros@gmail.com> (TRY Ubbe)",
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.4.0"
+  }
 }
