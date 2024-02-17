@@ -7,14 +7,31 @@ This repository contains 100 JavaScript projects recreated using Astro, based on
 ![Astro][astro-badge]
 ![JavaScript][javascript-badge]
 
-## 📦 Requeriments
-- [NodeJS][nodejs-url] _v20.11.0_
-
 ## 💼 Projects
 
 | #     | Project         | Description                                                               | Code                                        |
 | :---: | --------------- | ------------------------------------------------------------------------- | :-----------------------------------------: |
 | 001   | Tinder Swipe    | Aprende a crear el efecto de swipe de Tinder con HTML, CSS y JavaScript.  | [![GitHub Badge][github-badge]][project001] |
+
+## 📦 Requeriments
+
+- [NodeJS][nodejs-url] _v20.11.0_
+
+## 🚀 Commands
+
+| Command                   | Action                                                  |
+| :------------------------ | :------------------------------------------------------ |
+| `npm install`             | Installs dependencies                                   |
+| `npm start`               | Starts local dev server at `http://localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/portfolio`        |
+| `npm run lint`            | Fix linter w/ ESLint                                    |
+
+## 📟 Setup
+
+```bash
+npm install
+npm start
+```
 
 [readme_img]: ./public/readme.png
 [javascript100dev]: https://javascript100.dev
