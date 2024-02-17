@@ -1,0 +1,94 @@
+---
+interface Props {
+  person: {
+    src: string;
+    name: string;
+    age: number;
+  };
+}
+
+const { person } = Astro.props;
+---
+
+<li
+  class="rounded-lg overflow-hidden absolute inset-0 z-20 cursor-grab active:cursor-grabbing"
+>
+  <img class="w-full h-full object-cover" src={person.src} />
+  <h2
+    class="text-white absolute inset-0 flex items-end h-full w-full p-4 z-30 text-2xl font-bold"
+  >
+    {person.name}
+    <span class="ml-1 text-base font-normal">{person.age}</span>
+  </h2>
+  <span
+    class="w-fit px-2 py-1 font-bold text-size text-2xl rounded-lg border-4 absolute top-8 right-4 opacity-0 text-red-400 border-red-400 rotate-45 choice like"
+    >NOPE</span
+  >
+  <span
+    class="w-fit px-2 py-1 font-bold text-size text-2xl rounded-lg border-4 absolute top-8 left-4 opacity-0 text-green-400 border-green-400 -rotate-45 choice nope"
+    >LIKE</span
+  >
+</li>
+
+<style>
+  h2 {
+    background: linear-gradient(to top, #00000088 20%, transparent 40%);
+  }
+</style>
+
+<script>
+  const DECISION_THRESHOLD = 75;
+  const startDrag = (event) => {
+    const cardEl = event.target.closest("li");
+    const startX = event.pageX ?? event.touches[0].pageX;
+    if (!cardEl) return;
+
+    const onMove = (event) => {
+      const currentX = event.pageX ?? event.touches[0].pageX;
+      cardEl.style.transform = `translateX(${currentX - startX}px) rotate(${(currentX - startX) / 14}deg)`;
+
+      const choiceEl =
+        currentX - startX < 0
+          ? cardEl.querySelector("span.like")
+          : cardEl.querySelector("span.nope");
+      choiceEl.style.opacity = Math.abs((currentX - startX) / 100);
+    };
+
+    const onEnd = (event) => {
+      const currentX = event.pageX ?? event.touches[0].pageX;
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onEnd);
+      document.removeEventListener("touchmove", onMove);
+      document.removeEventListener("touchend", onEnd);
+      cardEl.classList.add("transition-all");
+
+      if (Math.abs(currentX - startX) >= DECISION_THRESHOLD) {
+        const transform =
+          currentX - startX >= 0
+            ? `translateX(150%) rotate(30deg)`
+            : `translateX(-150%) rotate(-30deg)`;
+
+        cardEl.style.transform = transform;
+        cardEl.addEventListener("transitionend", () => cardEl.remove());
+      } else {
+        cardEl.style = `translateX(0px) rotate(0deg)`;
+        cardEl
+          .querySelectorAll(".choice")
+          .forEach((choice) => (choice.style.opacity = 0));
+      }
+
+      cardEl.addEventListener("transitionend", () => {
+        cardEl.removeAttribute("style");
+        cardEl.classList.remove("transition-all");
+      });
+    };
+
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onEnd);
+    document.addEventListener("touchmove", onMove, { passive: true });
+    document.addEventListener("touchend", onEnd, { passive: true });
+  };
+
+  document.addEventListener("mousedown", startDrag);
+  document.addEventListener("touchstart", startDrag, { passive: true });
+</script>

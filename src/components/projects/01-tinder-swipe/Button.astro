@@ -1,0 +1,39 @@
+---
+interface Props {
+  type: string;
+  isBig?: boolean;
+}
+const { isBig, type } = Astro.props;
+---
+
+<button
+  class="rounded-full border-none cursor-pointer hover:scale-150 transition-transform active:scale-75"
+  class:list={[isBig ? "h-12 w-12" : "h-8 w-8", type]}
+  aria-label={type}
+>
+</button>
+
+<style>
+  button {
+    background: url("tinderSwipe/tinder-icons.webp") no-repeat;
+  }
+  .w-8 {
+    background-size: 175px;
+  }
+  .w-12 {
+    background-size: 250px;
+  }
+
+  .undo {
+    background-position: -140px 0;
+  }
+  .remove {
+    background-position: -150px 0;
+  }
+  .star {
+    background-position: -70px 0px;
+  }
+  .fav {
+    background-position: -50px 0;
+  }
+</style>
